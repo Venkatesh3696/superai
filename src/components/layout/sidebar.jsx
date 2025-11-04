@@ -6,6 +6,7 @@ import {
   Image,
   PanelRight,
   TextAlignStart,
+  Brain,
 } from "lucide-react";
 import { Button } from "../ui/button";
 
@@ -30,10 +31,15 @@ export default function Sidebar() {
     <aside
       className={`${
         open ? "w-64" : "w-20"
-      } bg-muted h-screen transition-all duration-300 flex flex-col border-r p-4`}
+      } bg-[#111111] text-[#D9DADB] h-screen transition-all duration-300 flex flex-col justify-between border-r p-4 `}
     >
-      <div className="flex items-center justify-between p-4 border-b">
-        <h2 className={`font-bold text-lg ${!open && "hidden"}`}>Super AI</h2>
+      <div className="flex items-center justify-between p-4 border-b h-full">
+        <h2 className={`font-bold text-lg flex  ${!open && "hidden"} `}>
+          <div className="bg-blue-500 text-white aspect-square p-2 h-full  justify-center pb-4 mr-3">
+            <h1>C</h1>
+          </div>
+          Super AI
+        </h2>
         <button
           onClick={() => setOpen(!open)}
           className="p-2 rounded hover:bg-accent cursor-pointer"
@@ -41,50 +47,44 @@ export default function Sidebar() {
           <PanelRight size={18} />
         </button>
       </div>
-
-      <nav className="flex-1 mt-4 space-y-2">
-        {navItems.map((item) => (
-          <button
-            key={item.name}
-            className="flex items-center gap-3 px-4 py-2 w-full text-left hover:bg-accent rounded-md"
-          >
-            {item.icon}
-            {open && <span>{item.name}</span>}
-          </button>
-        ))}
-      </nav>
-
-      {open && (
+      <div className="justify-self-start h-2/3">
         <nav className="flex-1 mt-4 space-y-2">
-          {previousChats.map((item) => (
+          {navItems.map((item) => (
             <button
               key={item.name}
-              className="flex items-center gap-3 px-4 py-2 w-full text-left hover:bg-accent rounded-md"
+              className="flex items-center gap-3 px-4 py-2 w-full text-left hover:bg-accent hover:text-black rounded-md"
             >
-              <TextAlignStart />
-
-              <span>{item.title}</span>
+              {item.icon}
+              {open && <span>{item.name}</span>}
             </button>
           ))}
         </nav>
-      )}
+
+        {open && (
+          <nav className="flex-1 mt-4 space-y-2">
+            {previousChats.map((item, ind) => (
+              <button
+                key={`chat-${ind}`}
+                className="flex items-center gap-3 px-4 py-2 w-full text-left hover:bg-accent rounded-md"
+              >
+                <TextAlignStart />
+                <span>{item.title}</span>
+              </button>
+            ))}
+          </nav>
+        )}
+      </div>
       {open && (
         <div>
-          <div>
-            <div>
-              <div>
+          <div className="bg-linear-to-r/srgb from-indigo-500 to-teal-400 p-2 rounded">
+            <div className="flex  p-2">
+              <Brain size={32} />
+              <div className="">
                 <h1>Upgrade Plan</h1>
                 <p>More access to the best models</p>
               </div>
-              <Button>Upgrade Plan</Button>
             </div>
-          </div>
-          <div>
-            <div>
-              <div></div>
-              <h1>John doe</h1>
-              <p>johndoe@gmail.com</p>
-            </div>
+            <Button className="w-full">Upgrade Plan</Button>
           </div>
         </div>
       )}
